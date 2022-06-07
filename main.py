@@ -1,57 +1,69 @@
 import time
-import typing
-import spotipy
-import os
-from spotipy.oauth2 import SpotifyOAuth
+from bs4 import BeautifulSoup
+import requests
+
+from telethon import functions
 from telethon.sync import TelegramClient
-from telethon import functions, types
+
 import bd
+
 api_id = bd.api_id
 api_hash = bd.api_hash
-status = bd.status
-
-spotify = spotipy.Spotify(
-	auth_manager=SpotifyOAuth(
-		scope="user-read-currently-playing",
-		client_id=bd.client_id,
-		client_secret=bd.client_secret,
-		redirect_uri=bd.redirect_uri,
-		username=bd.spotiusername,
-	)
-)
+default_status = bd.status
+current_playing = ''
 
 
-current_playing = typing.List[typing.Union[str, str, str]]
+def shorten_track_name():
+    tools = [
+        lambda a: (a.split('—')[0] + '—' + a.split('—')[1].split('(')[0]).strip(),
+        lambda a: (', '.join(a.split('—')[0].split(', ')[:3]) + ' —' + a.split('—')[1]).strip(),
+        lambda a: (', '.join(a.split('—')[0].split(', ')[:2]) + ' —' + a.split('—')[1]).strip(),
+        lambda a: (a.split('—')[0].split(',')[0] + ' —' + a.split('—')[1]).strip(),
+        lambda a: (a.split('—')[0].split('feat.')[0] + ' —' + a.split('—')[1]).strip(),
+        lambda a: (a.split('—')[1]).strip()
+    ]
+    
+    for tool in tools:
+        yield tool
+
 
 def update_status(_current_playing):
-	current = spotify.current_user_playing_track()
-	if not current is None:
+    response = requests.get(bd.group_link)
+    current = BeautifulSoup(response.text, features="html.parser").find_all(class_='pp_status')
+    if current:
 
-		track = current["item"]["name"]
-		album = current["item"]["album"]["name"]
-		artist = current["item"]["artists"][0]["name"]
+        track = current[0].contents[0]
+        music_status = "🎧 VK Музыка | " + track
+        shorter = shorten_track_name()
+        while len(music_status) > 70:
+            try:
+                track = next(shorter)(track)
+                music_status = "🎧 VK Музыка | " + track
+            except StopIteration:
+                music_status = default_status
 
-		if _current_playing != [track, album, artist]:
-			muzon = "🎧 Spotify | " + artist + " - " + track
-			
-			with TelegramClient('anon', api_id, api_hash) as client:
-				result = client(functions.account.UpdateProfileRequest(about=muzon))
-			print(f"🎧 Spotify | {track} - {artist}")
+        if _current_playing != track:
+            with TelegramClient('anon', api_id, api_hash) as client:
+                client(functions.account.UpdateProfileRequest(about=music_status))
+            print(f"🆗 Установил статус: «{music_status}»")
 
-		return [track, album, artist]
+        return track
 
-	if not _current_playing is None:
-                print("None")
-                time.sleep(6)
-                with TelegramClient('anon', api_id, api_hash) as client:
-                    result = client(functions.account.UpdateProfileRequest(about=status))
-	return
+    if _current_playing is not None:
+        
+        with TelegramClient('anon', api_id, api_hash) as client:
+            client(functions.account.UpdateProfileRequest(about=default_status))    
+        print(f"🆗 Установил статус: «{default_status}»")
+        time.sleep(10)
+
+    return None
+
+
 if __name__ == '__main__':
-	try:
-		while True:
-			print("Получаю обновления")
-			current_playing = update_status(current_playing)
-			time.sleep(8)
-
-	except Exception as e:
-		print(e)
+    print('🚀 Запускаем...')
+    while True:
+        try:
+            time.sleep(5)
+            current_playing = update_status(current_playing)
+        except Exception as e:
+            print(f'⚡ Ошибка: {str(e)}')
