@@ -18,8 +18,10 @@ def shorten_track_name():
         lambda a: (a.split('—')[0] + '—' + a.split('—')[1].split('(')[0]).strip(),
         lambda a: (', '.join(a.split('—')[0].split(', ')[:3]) + ' —' + a.split('—')[1]).strip(),
         lambda a: (', '.join(a.split('—')[0].split(', ')[:2]) + ' —' + a.split('—')[1]).strip(),
-        lambda a: (a.split('—')[0].split(',')[0] + ' —' + a.split('—')[1]).strip(),
-        lambda a: (a.split('—')[0].split('feat.')[0] + ' —' + a.split('—')[1]).strip(),
+        lambda a: (a.split('—')[0].split(', ')[0] + ' —' + a.split('—')[1]).strip(),
+        lambda a: (a.split('—')[0].split(' feat. ')[0] + ' —' + a.split('—')[1]).strip(),
+        lambda a: (a.split('—')[0].split(' ft ')[0] + ' —' + a.split('—')[1]).strip(),
+        lambda a: (a.split('—')[0].split(' & ')[0] + ' —' + a.split('—')[1]).strip(),
         lambda a: (a.split('—')[1]).strip()
     ]
     
