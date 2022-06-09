@@ -24,6 +24,6 @@
 [1]: https://python.org
 [2]: https://www.crummy.com/software/BeautifulSoup/
 [3]: https://github.com/LonamiWebs/Telethon
-[4]: https://github.com/PaveTranquil/vk-tg-music-streamer/archive/refs/heads/main.zip
+[4]: https://github.com/PaveTranquil/vk-tg-music-broadcaster/archive/refs/heads/main.zip
 [5]: https://github.com/Aradionov366
 [6]: https://github.com/XuliGan4eg2006
