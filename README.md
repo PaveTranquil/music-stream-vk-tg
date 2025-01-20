@@ -19,11 +19,10 @@
 1. Повтори ш.5 из настройки скрипта: `python main.py`<br/>
 Входить повторно не придётся — модуль Telethon используется сессию из **anon.session**.
 
-#### Спасибо [Aradionov366][5] и [XuliGan4eg2006][6] за базу для написания скрипта ✊🏻
+#### Спасибо [XuliGan4eg2006][5] за базу для написания скрипта ✊🏻
 
 [1]: https://python.org
 [2]: https://www.crummy.com/software/BeautifulSoup/
 [3]: https://github.com/LonamiWebs/Telethon
 [4]: https://github.com/PaveTranquil/vk-tg-music-broadcaster/archive/refs/heads/main.zip
-[5]: https://github.com/Aradionov366
-[6]: https://github.com/XuliGan4eg2006
+[5]: https://github.com/XuliGan4eg2006

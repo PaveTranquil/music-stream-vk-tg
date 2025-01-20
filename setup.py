@@ -3,7 +3,7 @@ import os
 os.system('mode con: cols=80')
 
 print('Трансляция музыки из ВКонтакте в статус Telegram'.center(80))
-print('by PaveTranquil (forked from Aradionov366)'.center(80))
+print('by snowlue'.center(80))
 print()
 print('===== ВКонтакте ====='.center(80))
 print('1. Создайте закрытое сообщество — https://vk.com/groups_create')
