@@ -1,8 +1,8 @@
-# Трансляция музыки из ВКонтакте в статус Telegram
+# Трансляция VK Музыки в статус Telegram
 [![Made with Python 3.10.4](https://img.shields.io/badge/Made_with-Python_3.10.4-%23336E9E)][1]<br/>
 [![Beautiful Soup](https://img.shields.io/badge/Beautiful_Soup-%231C4E63)][2]   [![Telethon](https://img.shields.io/badge/Telethon-%23FFD750)][3]
 
-Транслируй музыку, которая играет у тебя ВКонтакте в информацию о твоём профиле Telegram.
+Транслируй музыку, которая играет у тебя VK Музыке в информацию о твоём профиле Telegram.
 
 <img src="https://user-images.githubusercontent.com/22418658/172883534-9dc82cc4-7f69-4741-bf00-1e156309a1bc.png" alt="Скриншот профиля Telegram, демонстрирующий работу скрипта" height="350">
 
